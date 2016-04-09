@@ -246,27 +246,6 @@ namespace ShareX.HelpersLib
             }
         }
 
-        private void imageLoaded(Image img)
-        {
-            if (InvokeRequired)
-            {
-                BeginInvoke(new Action(() => imageLoaded(img)));
-            }
-            else
-            {
-                lock (imageLoadLock)
-                {
-                    Reset();
-                    Image = img;
-
-                    Text = Resources.MyPictureBox_LoadImageAsync_Loading_image___;
-
-                    isImageLoading = false;
-                    lblStatus.Visible = false;
-                }
-            }
-        }
-
         public void Reset()
         {
             if (!isImageLoading && Image != null)
@@ -291,6 +270,27 @@ namespace ShareX.HelpersLib
             if (FullscreenOnClick && Cursor != Cursors.Default)
             {
                 Cursor = Cursors.Default;
+            }
+        }
+
+        private void imageLoaded(Image img)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => imageLoaded(img)));
+            }
+            else
+            {
+                lock (imageLoadLock)
+                {
+                    Reset();
+                    Image = img;
+
+                    Text = Resources.MyPictureBox_LoadImageAsync_Loading_image___;
+
+                    isImageLoading = false;
+                    lblStatus.Visible = false;
+                }
             }
         }
 
